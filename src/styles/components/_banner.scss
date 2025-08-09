@@ -1,0 +1,71 @@
+@use "../abstracts/mixins" as *;
+// Styles pour le composant Banner
+.banner {
+  position: relative;
+  margin: 0 auto;
+  border-radius: 25px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+
+  &__text {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 0;
+    text-align: center;
+  }
+
+  @include respond-to(mobile) {
+    height: 111px;
+    width: 89.337%;
+    justify-content: flex-start;
+    &__text {
+      font-size: 24px;
+      line-height: 1;
+      text-align: left;
+      margin-left: 16px;
+    }
+  }
+
+  @include respond-to(tablet) {
+    height: 180px;
+    width: 95%;
+    justify-content: center;
+    &__text {
+      font-size: 32px;
+      line-height: 1.2;
+      text-align: center;
+      margin-left: 0;
+      -webkit-text-stroke: 0.7px #000;
+    }
+  }
+
+  @include respond-to(desktop) {
+    width: 86.112%;
+    height: 223px;
+    &__text {
+      font-size: 48px;
+      line-height: 1.43;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      -webkit-text-stroke: 1px #000;
+    }
+    & br {
+      display: none;
+    }
+  }
+}

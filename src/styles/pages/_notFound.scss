@@ -1,0 +1,75 @@
+@use "../abstracts/mixins" as *;
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include respond-to(mobile) {
+  }
+
+  &__title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    margin-top: 139px;
+    font-size: 288px;
+    line-height: 1.43;
+    color: #ff6060;
+    @include respond-to(mobile) {
+      font-size: 96px;
+      margin-top: 113px;
+    }
+    @include respond-to(tablet) {
+      font-size: 180px;
+      margin-top: 120px;
+    }
+  }
+
+  &__text {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    margin-top: 139px;
+    font-size: 36px;
+    line-height: 1.43;
+    color: #ff6060;
+    text-align: center;
+    @include respond-to(mobile) {
+      font-size: 18px;
+      margin-top: 113px;
+      max-width: 260px;
+    }
+    @include respond-to(tablet) {
+      font-size: 24px;
+      margin-top: 120px;
+      max-width: 400px;
+    }
+    & br {
+      display: none;
+      @include respond-to(mobile) {
+        display: block;
+      }
+      @include respond-to(tablet) {
+        display: block;
+      }
+    }
+  }
+
+  &__link {
+    color: #000;
+    text-decoration: underline;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    margin: 139px 0;
+    font-size: 18px;
+    line-height: 1.43;
+    letter-spacing: 0;
+    @include respond-to(mobile) {
+      font-size: 14px;
+      margin: 113px 0;
+    }
+    @include respond-to(tablet) {
+      font-size: 16px;
+      margin: 120px 0;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+@use "sass:map";
+// Mixin pour les media queries
+$breakpoints: (
+  "mobile": 768px,
+  "tablet-min": 769px,
+  "tablet-max": 1024px,
+  "desktop": 1025px,
+);
+
+@mixin respond-to($device) {
+  @if $device == mobile {
+    @media (max-width: map.get($breakpoints, "mobile")) {
+      @content;
+    }
+  } @else if $device == tablet {
+    @media (min-width: map.get($breakpoints, "tablet-min")) and (max-width: map.get($breakpoints, "tablet-max")) {
+      @content;
+    }
+  } @else if $device == desktop {
+    @media (min-width: map.get($breakpoints, "desktop")) {
+      @content;
+    }
+  } @else {
+    @warn 'Aucun breakpoint trouvé pour '#{$device};
+  }
+}

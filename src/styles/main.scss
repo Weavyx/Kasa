@@ -1,0 +1,29 @@
+// Fichier principal SASS (7-1 pattern)
+
+// Vendors (bibliothèques tierces)
+@use "./vendors/reset";
+
+// Abstracts
+@use "../styles/abstracts/mixins" as *;
+@use "./abstracts/variables";
+@use "./abstracts/functions";
+
+// Base
+@use "./base/typography";
+@use "./base/base";
+
+// Layout
+@use "./layout/header";
+@use "./layout/footer";
+
+// Components
+@use "./components/banner";
+@use "./components/card";
+@use "./components/collapse";
+@use "./components/slideshow";
+
+// Pages
+@use "./pages/home";
+@use "./pages/about";
+@use "./pages/notFound";
+@use "./pages/logement";
