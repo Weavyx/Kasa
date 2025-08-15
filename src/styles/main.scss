@@ -1,29 +1,41 @@
-// Fichier principal SASS (7-1 pattern)
+// =============================================================================
+// KASA - Architecture SCSS 7-1 Moderne
+// =============================================================================
 
-// Vendors (bibliothèques tierces)
+// 1. ABSTRACTS - Configuration, variables, fonctions, mixins
+// -----------------------------------------------------------------------------
+@use "./abstracts/variables" as vars;
+@use "./abstracts/functions" as fn;
+@use "./abstracts/mixins" as *;
+
+// 2. VENDORS - Librairies tierces et resets
+// -----------------------------------------------------------------------------
 @use "./vendors/reset";
 
-// Abstracts
-@use "../styles/abstracts/mixins" as *;
-@use "./abstracts/variables";
-@use "./abstracts/functions";
-
-// Base
-@use "./base/typography";
+// 3. BASE - Styles de base, typographie globale
+// -----------------------------------------------------------------------------
 @use "./base/base";
+@use "./base/typography";
 
-// Layout
+// 4. LAYOUT - Structure principale (header, footer, navigation)
+// -----------------------------------------------------------------------------
 @use "./layout/header";
 @use "./layout/footer";
 
-// Components
+// 5. COMPONENTS - Composants réutilisables
+// -----------------------------------------------------------------------------
 @use "./components/banner";
 @use "./components/card";
 @use "./components/collapse";
 @use "./components/slideshow";
 
-// Pages
+// 6. PAGES - Styles spécifiques aux pages
+// -----------------------------------------------------------------------------
 @use "./pages/home";
 @use "./pages/about";
-@use "./pages/notFound";
 @use "./pages/logement";
+@use "./pages/notFound";
+
+// 7. THEMES - Thèmes et surcharges (si nécessaire)
+// -----------------------------------------------------------------------------
+// @use "./themes/theme";

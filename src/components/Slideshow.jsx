@@ -54,6 +54,13 @@ const Slideshow = ({ images }) => {
                     </button>
                 </>
             )}
+
+            {/* Afficher le compteur seulement s'il y a plus d'une image */}
+            {images.length > 1 && (
+                <div className="slideshow__counter">
+                    {currentIndex + 1}/{images.length}
+                </div>
+            )}
         </div>
     );
 };

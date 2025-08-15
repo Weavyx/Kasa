@@ -1,26 +1,335 @@
-@use "sass:map";
-// Mixin pour les media queries
-$breakpoints: (
-  "mobile": 768px,
-  "tablet-min": 769px,
-  "tablet-max": 1024px,
-  "desktop": 1025px,
-);
+// =============================================================================
+// MIXINS - Composants et utilitaires réutilisables
+// =============================================================================
 
+@use "sass:map";
+@use "functions" as *;
+@use "variables" as *;
+
+// ========================================
+// 1. DESIGN TOKENS (Couleurs et Espacement)
+// ========================================
+
+/// Palette de couleurs du design system
+$primary-color: #ff6060 !default;
+$secondary-color: #f6f6f6 !default;
+$text-color: #000 !default;
+$white: #fff !default;
+$black: rgba(0, 0, 0, 1) !default;
+
+/// Échelle d'espacement modulaire
+/// @type Map
+$spacing-scale: (
+  xs: 5px,
+  sm: 10px,
+  md: 20px,
+  lg: 30px,
+  xl: 40px,
+  xxl: 60px,
+) !default;
+
+/// Échelle de border-radius
+/// @type Map
+$border-radius: (
+  xs: 5px,
+  sm: 8px,
+  md: 10px,
+  lg: 15px,
+  xl: 20px,
+  xxl: 25px,
+) !default;
+
+// ========================================
+// 2. RESPONSIVE MIXINS
+// ========================================
+
+/// Mixin pour les media queries responsives
+/// @param {String} $device - Type d'appareil (mobile, tablet, desktop)
+/// @content Contenu CSS à appliquer
+/// @example scss - Usage
+///   @include respond-to(tablet) { font-size: 18px; }
 @mixin respond-to($device) {
   @if $device == mobile {
-    @media (max-width: map.get($breakpoints, "mobile")) {
+    @media (max-width: $breakpoint-768) {
       @content;
     }
   } @else if $device == tablet {
-    @media (min-width: map.get($breakpoints, "tablet-min")) and (max-width: map.get($breakpoints, "tablet-max")) {
+    @media (min-width: #{$breakpoint-768 + 1px}) and (max-width: 1024px) {
       @content;
     }
   } @else if $device == desktop {
-    @media (min-width: map.get($breakpoints, "desktop")) {
+    @media (min-width: 1025px) {
       @content;
     }
   } @else {
     @warn 'Aucun breakpoint trouvé pour '#{$device};
+  }
+}
+
+// Mixin pour les media queries spécifiques avec breakpoints personnalisés
+@mixin custom-breakpoint($min: null, $max: null) {
+  @if $min and $max {
+    @media (min-width: #{$min}) and (max-width: #{$max}) {
+      @content;
+    }
+  } @else if $min {
+    @media (min-width: #{$min}) {
+      @content;
+    }
+  } @else if $max {
+    @media (max-width: #{$max}) {
+      @content;
+    }
+  }
+}
+
+// Mixin pour les propriétés responsives (tailles et espacements)
+@mixin responsive-property($property, $mobile, $tablet, $desktop) {
+  & {
+    #{$property}: $mobile;
+
+    @include respond-to(tablet) {
+      #{$property}: $tablet;
+    }
+
+    @include respond-to(desktop) {
+      #{$property}: $desktop;
+    }
+  }
+}
+
+// Alias pour la rétrocompatibilité
+@mixin responsive-size($property, $mobile, $tablet, $desktop) {
+  @include responsive-property($property, $mobile, $tablet, $desktop);
+}
+
+@mixin responsive-spacing($property, $mobile, $tablet, $desktop) {
+  @include responsive-property($property, $mobile, $tablet, $desktop);
+}
+
+// Mixin pour la typographie Montserrat
+@mixin montserrat-font(
+  $weight: 500,
+  $size: 16px,
+  $line-height: 1.43,
+  $color: #000
+) {
+  & {
+    font-family: "Montserrat", sans-serif;
+    font-weight: $weight;
+    font-size: $size;
+    line-height: $line-height;
+    letter-spacing: 0;
+    color: $color;
+  }
+}
+
+// Mixin pour les conteneurs flex
+@mixin flex-center($direction: column) {
+  & {
+    display: flex;
+    flex-direction: $direction;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Mixin pour les tailles de police responsive courantes
+@mixin responsive-font-size($mobile: 12px, $tablet: 15px, $desktop: 18px) {
+  & {
+    font-size: $mobile;
+
+    @include respond-to(tablet) {
+      font-size: $tablet;
+    }
+
+    @include respond-to(desktop) {
+      font-size: $desktop;
+    }
+  }
+}
+
+@mixin flex-container(
+  $direction: column,
+  $wrap: nowrap,
+  $justify: flex-start,
+  $align: stretch
+) {
+  & {
+    display: flex;
+    flex-flow: $direction $wrap;
+    justify-content: $justify;
+    align-items: $align;
+  }
+}
+
+// Mixin pour les overlays
+@mixin overlay($bg-color: rgba(0, 0, 0, 0.5), $z-index: 1) {
+  & {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: $bg-color;
+    z-index: $z-index;
+    pointer-events: none;
+  }
+}
+
+@mixin gradient-overlay($z-index: 2) {
+  & {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: $z-index;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(10, 10, 10, 0) 42%,
+      rgba(4, 4, 4, 0.205) 99.99%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+  }
+}
+
+// Mixin pour les tags stylisés
+@mixin tag-style($bg-color: $primary-color, $text-color: $white) {
+  @include montserrat-font(700, 10px, 1.43, $text-color);
+  @include responsive-font-size(10px, 12px, 14px);
+
+  & {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $bg-color;
+    color: $text-color;
+    text-align: center;
+    border-radius: map.get($border-radius, sm);
+    padding: 2.16px 0 1.84px 0;
+    width: 84px;
+
+    @include respond-to(tablet) {
+      border-radius: map.get($border-radius, md) - 2px;
+      padding: 2.5px 0 1.5px 0;
+      width: 100px;
+    }
+
+    @include respond-to(desktop) {
+      border-radius: map.get($border-radius, md);
+      padding: 3px 0 2px 0;
+      width: 115px;
+    }
+  }
+}
+
+// Mixin pour les images circulaires
+@mixin circular-image(
+  $mobile-size: 32px,
+  $tablet-size: 48px,
+  $desktop-size: 64px
+) {
+  & {
+    border-radius: 50%;
+    object-fit: cover;
+    width: $mobile-size;
+    height: $mobile-size;
+  }
+
+  @include respond-to(tablet) {
+    width: $tablet-size;
+    height: $tablet-size;
+  }
+
+  @include respond-to(desktop) {
+    width: $desktop-size;
+    height: $desktop-size;
+  }
+}
+
+// Mixin pour les transitions standardisées
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  & {
+    transition: ease-transition($property, $duration, $timing);
+  }
+}
+
+// Mixin pour les positions absolues
+@mixin absolute-position(
+  $top: null,
+  $right: null,
+  $bottom: null,
+  $left: null,
+  $z-index: $z-index-base
+) {
+  & {
+    position: absolute;
+    z-index: $z-index;
+
+    @if $top {
+      top: $top;
+    }
+    @if $right {
+      right: $right;
+    }
+    @if $bottom {
+      bottom: $bottom;
+    }
+    @if $left {
+      left: $left;
+    }
+  }
+}
+
+// Mixin pour les effets de texte
+@mixin text-effects($stroke: null, $shadow: null) {
+  & {
+    @if $stroke {
+      -webkit-text-stroke: $stroke $black;
+    }
+    @if $shadow {
+      text-shadow: $shadow;
+    }
+  }
+}
+
+// Mixin pour les composants avec shadow standard
+@mixin component-shadow($type: "card") {
+  & {
+    @if $type == "card" {
+      box-shadow: $shadow-card;
+    } @else if $type == "banner" {
+      box-shadow: $shadow-banner;
+    }
+  }
+}
+
+// Mixin pour les hauteurs standardisées des composants
+@mixin component-height($component: "card") {
+  @if $component == "card" {
+    @include responsive-size(
+      height,
+      get-value($component-heights, card-mobile),
+      get-value($component-heights, card-tablet),
+      get-value($component-heights, card-desktop)
+    );
+  } @else if $component == "slideshow" {
+    @include responsive-size(
+      height,
+      get-value($component-heights, slideshow-mobile),
+      get-value($component-heights, slideshow-tablet),
+      get-value($component-heights, slideshow-desktop)
+    );
+  }
+}
+
+// Mixin pour les largeurs en pourcentages depuis la map
+@mixin responsive-percentage-width($component: "banner") {
+  @if $component == "banner" {
+    @include responsive-size(
+      width,
+      get-value($banner-widths, mobile),
+      get-value($banner-widths, tablet),
+      get-value($banner-widths, desktop)
+    );
   }
 }

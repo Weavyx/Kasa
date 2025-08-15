@@ -1,12 +1,12 @@
 import Banner from '../components/Banner';
 import Card from '../components/Card';
-import bannerImg from '../assets/home-banner.jpg';
+import bannerImg from '../assets/images/home-banner.jpg';
 import logements from '../data/logements.json';
 
 const Home = () => {
   return (
     <div>
-      <Banner text="Chez vous,<br /> partout et ailleurs" img={bannerImg} />
+      <Banner text="Chez vous,<br /> partout et ailleurs" img={bannerImg} variant="home" />
       <div className="cards-container">
         {
           logements.map(({id, title, cover}) => (

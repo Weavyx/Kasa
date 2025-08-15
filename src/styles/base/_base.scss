@@ -1,1 +1,56 @@
-// Styles de base généraux
+// =============================================================================
+// BASE - Styles fondamentaux et normalisation
+// =============================================================================
+
+// ========================================
+// 1. ROOT CONFIGURATION
+// ========================================
+
+:root {
+  // CSS Custom Properties pour un design system moderne
+  --app-min-height: 100vh;
+  --layout-flex: 1;
+}
+
+// ========================================
+// 2. DOCUMENT STRUCTURE
+// ========================================
+
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth; // Navigation fluide moderne
+}
+
+#root {
+  min-height: var(--app-min-height);
+  display: flex;
+  flex-direction: column;
+}
+
+// ========================================
+// 3. LAYOUT CONTAINERS
+// ========================================
+
+.main-content {
+  flex: var(--layout-flex);
+}
+
+// ========================================
+// 4. ACCESSIBILITY & UX
+// ========================================
+
+// Amélioration du focus pour l'accessibilité
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+// Réduction du mouvement pour les utilisateurs sensibles
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

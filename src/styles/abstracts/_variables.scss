@@ -1,1 +1,83 @@
-// Variables globales SASS
+// =============================================================================
+// VARIABLES GLOBALES - Configuration Design System
+// =============================================================================
+
+// ========================================
+// 1. BREAKPOINTS (Design System)
+// ========================================
+/// Système de points de rupture responsive
+/// @group breakpoints
+$breakpoint-376: 376px !default; // Transition petit écran
+$breakpoint-768: 768px !default; // Mobile max
+$breakpoint-1024: 1024px !default; // Tablet max
+$breakpoint-1280: 1280px !default; // Large desktop
+$breakpoint-1440: 1440px !default; // XL desktop
+
+// ========================================
+// 2. Z-INDEX SCALE (Système d'empilement)
+// ========================================
+/// Échelle z-index pour gérer les empilements
+/// @group layout
+$z-index-base: 1 !default;
+$z-index-overlay: 2 !default;
+$z-index-modal: 3 !default;
+
+// ========================================
+// 3. SHADOWS (Design tokens)
+// ========================================
+/// Ombres standardisées du design system
+/// @group effects
+$shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1) !default;
+$shadow-banner: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) !default;
+$shadow-text: 0 2px 8px rgba(0, 0, 0, 0.3) !default;
+
+// ========================================
+// 4. OPACITIES (États d'interaction)
+// ========================================
+/// Valeurs d'opacité pour les interactions
+/// @group states
+$opacity-hover: 0.8 !default;
+$opacity-overlay: 0.5;
+
+// Stroke values
+$stroke-light: 0.7px;
+$stroke-heavy: 1px;
+
+// Valeurs communes pour les largeurs
+$banner-widths: (
+  mobile: 89.337%,
+  tablet: 95%,
+  desktop: 86.112%,
+);
+
+// Hauteurs communes pour les composants
+$component-heights: (
+  card-mobile: 255px,
+  card-tablet: 300px,
+  card-desktop: 340px,
+  slideshow-mobile: 255px,
+  slideshow-tablet: 415px,
+  slideshow-desktop: 415px,
+);
+
+// Espacements standards répétitifs
+$margins-notfound: (
+  mobile: 113px,
+  tablet: 120px,
+  desktop: 139px,
+);
+
+// Pourcentages pour les layouts
+$layout-percentages: (
+  collapse-tablet: 90%,
+  collapse-desktop: 71.042%,
+  logement-desktop-collapse: 46.9365%,
+);
+
+// Valeurs communes pour les host
+$host-config: (
+  name-width: 99px,
+  margin-mobile: 10.5px,
+  margin-tablet: 10px,
+  margin-desktop: 10px,
+);

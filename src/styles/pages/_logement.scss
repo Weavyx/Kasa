@@ -1,164 +1,58 @@
+@use "sass:map";
 @use "../abstracts/mixins" as *;
+@use "../abstracts/functions" as *;
+@use "../abstracts/variables" as *;
 
 .logement {
-  // Mobile styles (base)
   width: 100%;
   max-width: 100%;
-  margin: 0 0 27px 0;
-  padding: 0 20px;
-  display: flex;
-  flex-flow: column nowrap;
-
-  // Tablet and up
-  @include respond-to(tablet) {
-    margin-bottom: 35px;
-    padding: 0 50px;
-  }
-
-  // Desktop and up
-  @include respond-to(desktop) {
-    margin-bottom: 50px;
-    padding: 0 100px;
-  }
+  @include responsive-spacing(margin, 0 0 27px 0, 0 0 35px 0, 0 0 50px 0);
+  @include responsive-spacing(padding, 0 20px, 0 50px, 0 100px);
+  @include flex-container(column, nowrap);
 
   &__details {
-    // Mobile styles (base)
-    margin-top: 15px;
-    display: flex;
-    flex-flow: column nowrap;
+    @include responsive-spacing(margin-top, 15px, 20px, 24px);
+    @include flex-container(column, nowrap);
 
-    // Tablet and up
     @include respond-to(tablet) {
       flex-direction: row;
       justify-content: space-between;
-      margin-top: 20px;
-    }
-
-    // Desktop and up
-    @include respond-to(desktop) {
-      margin-top: 24px;
     }
 
     &-info {
-      // Mobile styles (base)
-      display: flex;
-      flex-flow: column nowrap;
-      gap: 5px;
-      margin-top: 0;
-
-      // Tablet and up
-      @include respond-to(tablet) {
-        margin-top: 4px;
-      }
-
-      // Desktop and up
-      @include respond-to(desktop) {
-        margin-top: 6px;
-      }
+      gap: map.get($spacing-scale, xs);
+      @include flex-container(column, nowrap);
+      @include responsive-spacing(margin-top, 0, 4px, 6px);
     }
 
     &-title {
-      // Mobile styles (base)
       width: 100%;
-      font-family: "Montserrat", sans-serif;
-      font-weight: 500;
-      font-size: 18px;
-      line-height: 1.43;
-      letter-spacing: 0;
       vertical-align: bottom;
-      color: #ff6060;
-
-      // Tablet and up
-      @include respond-to(tablet) {
-        font-size: 28px;
-      }
-
-      // Desktop and up
-      @include respond-to(desktop) {
-        font-size: 36px;
-      }
+      @include montserrat-font(500, 18px, 1.43, $primary-color);
+      @include responsive-size(font-size, 18px, 28px, 36px);
     }
 
     &-location {
-      // Mobile styles (base)
       width: 100%;
-      height: 22px;
-      font-family: "Montserrat", sans-serif;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 1.43;
-      letter-spacing: 0;
       vertical-align: bottom;
-
-      // Tablet and up
-      @include respond-to(tablet) {
-        font-size: 16px;
-        height: 24px;
-      }
-
-      // Desktop and up
-      @include respond-to(desktop) {
-        font-size: 18px;
-        height: 26px;
-      }
+      @include montserrat-font(500, 14px, 1.43, $black);
+      @include responsive-size(font-size, 14px, 16px, 18px);
+      @include responsive-size(height, 22px, 24px, 26px);
     }
 
     &-tags {
-      // Mobile styles (base)
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-
-      // Tablet and up
-      @include respond-to(tablet) {
-        margin-top: 15px;
-      }
-
-      // Desktop and up
-      @include respond-to(desktop) {
-        margin-top: 20px;
-      }
+      gap: map.get($spacing-scale, md);
+      @include responsive-spacing(margin-top, 10px, 15px, 20px);
     }
 
     &-tag {
-      // Mobile styles (base)
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #ff6060;
-      border-radius: 5px;
-      font-family: "Montserrat", sans-serif;
-      font-weight: 700;
-      font-style: normal;
-      font-size: 10px;
-      line-height: 1.43;
-      letter-spacing: 0;
-      text-align: center;
-      padding: 2.16px 0 1.84px 0;
-      color: #fff;
-      width: 84px;
-
-      // Tablet and up
-      @include respond-to(tablet) {
-        border-radius: 8px;
-        font-size: 12px;
-        padding: 2.5px 0 1.5px 0;
-        width: 100px;
-      }
-
-      // Desktop and up
-      @include respond-to(desktop) {
-        border-radius: 10px;
-        font-size: 14px;
-        padding: 3px 0 2px 0;
-        width: 115px;
-      }
+      @include tag-style($primary-color, $white);
     }
   }
 
   &__meta {
-    // Mobile styles (base)
     display: flex;
     flex-flow: row-reverse nowrap;
     justify-content: space-between;
@@ -166,125 +60,67 @@
     margin-top: 16px;
     row-gap: 0;
 
-    // Tablet and up
     @include respond-to(tablet) {
       flex-flow: column nowrap;
       margin-top: 0;
-      row-gap: 20px;
+      row-gap: map.get($spacing-scale, lg);
       justify-content: flex-start;
     }
 
-    // Desktop and up
     @include respond-to(desktop) {
       row-gap: 27px;
     }
   }
 
   &__host {
-    // Mobile styles (base)
     display: flex;
     align-items: center;
 
     &-name {
-      // Mobile styles (base)
-      font-family: "Montserrat", sans-serif;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 1.43;
       letter-spacing: 0;
       text-align: right;
       vertical-align: bottom;
-      color: #ff6060;
-      width: 99px;
+      width: get-value($host-config, name-width);
       white-space: pre-line;
       word-wrap: break-word;
-
-      // Tablet and up
-      @include respond-to(tablet) {
-        font-size: 15px;
-      }
-
-      // Desktop and up
-      @include respond-to(desktop) {
-        font-size: 18px;
-      }
+      @include montserrat-font(500, 12px, 1.43, $primary-color);
+      @include responsive-size(font-size, 12px, 15px, 18px);
     }
 
     &-picture {
-      // Mobile styles (base)
-      border-radius: 50%;
-      margin-left: 10.5px;
-      width: 32px;
-      height: 32px;
-      object-fit: cover;
-
-      // Tablet and up
-      @include respond-to(tablet) {
-        width: 48px;
-        height: 48px;
-        margin-left: 10px;
-      }
-
-      // Desktop and up
-      @include respond-to(desktop) {
-        width: 64px;
-        height: 64px;
-        margin-left: 10px;
-      }
+      @include circular-image(32px, 48px, 64px);
+      @include responsive-spacing(
+        margin-left,
+        get-value($host-config, margin-mobile),
+        get-value($host-config, margin-tablet),
+        get-value($host-config, margin-desktop)
+      );
     }
   }
 
   &__rating {
-    // Mobile styles (base)
     display: flex;
-    gap: 5px;
-
-    // Tablet and up
-    @include respond-to(tablet) {
-      gap: 10px;
-    }
-
-    // Desktop and up
-    @include respond-to(desktop) {
-      gap: 16px;
-    }
+    @include responsive-spacing(gap, 5px, 10px, 16px);
   }
 
   &__star {
-    // Mobile styles (base)
-    width: 13.41px;
-    height: 13px;
-
-    // Tablet and up
-    @include respond-to(tablet) {
-      width: 18px;
-      height: 17px;
-    }
-
-    // Desktop and up
-    @include respond-to(desktop) {
-      width: 24.75px;
-      height: 24px;
-    }
+    @include responsive-size(width, 13.41px, 18px, 24.75px);
+    @include responsive-size(height, 13px, 17px, 24px);
   }
 
   &__collapse-container {
-    // Mobile styles (base)
-    margin-top: 13px;
+    @include responsive-spacing(margin-top, 13px, 18px, 24px);
 
-    // Tablet and up
     @include respond-to(tablet) {
-      margin-top: 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    // Desktop and up
     @include respond-to(desktop) {
-      margin-top: 24px;
       display: flex;
       flex-direction: row;
+      align-items: start;
       justify-content: space-between;
     }
   }

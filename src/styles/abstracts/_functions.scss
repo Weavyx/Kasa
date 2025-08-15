@@ -1,1 +1,76 @@
-// Fonctions SASS
+// =============================================================================
+// FONCTIONS UTILITAIRES - Design System Helpers
+// =============================================================================
+
+@use "sass:math";
+@use "sass:map";
+
+// ========================================
+// 1. FONCTIONS RESPONSIVE
+// ========================================
+
+/// Calcule un pourcentage basé sur un contexte donné
+/// @param {Number} $target - Valeur cible en pixels
+/// @param {Number} $context [1440] - Contexte de référence en pixels
+/// @return {Percentage} - Pourcentage calculé
+/// @example scss - Usage
+///   width: percentage-width(720, 1440); // 50%
+@function percentage-width($target, $context: 1440) {
+  @return math.div($target, $context) * 100%;
+}
+
+/// Crée un calcul CSS pour une largeur responsive
+/// @param {Length} $base - Largeur de base
+/// @param {Length} $offset - Décalage à soustraire
+/// @return {String} - Expression calc() CSS
+/// @example scss - Usage
+///   width: calc-width(100%, 24px); // calc(100% - 24px)
+@function calc-width($base, $offset) {
+  @return calc(#{$base} - #{$offset});
+}
+
+/// Applique une transparence à une couleur
+/// @param {Color} $color - Couleur de base
+/// @param {Number} $opacity - Niveau d'opacité (0-1)
+/// @return {Color} - Couleur avec transparence
+/// @example scss - Usage
+///   background: rgba-overlay(#000, 0.5); // rgba(0, 0, 0, 0.5)
+@function rgba-overlay($color, $opacity) {
+  @return rgba($color, $opacity);
+}
+
+/// Génère une valeur clamp pour un design fluide
+/// @param {Length} $min - Valeur minimum
+/// @param {Length} $preferred - Valeur préférée (souvent en vw)
+/// @param {Length} $max - Valeur maximum
+/// @return {String} - Expression clamp() CSS
+/// @example scss - Usage
+///   font-size: clamp-value(16px, 4vw, 24px);
+@function clamp-value($min, $preferred, $max) {
+  @return clamp(#{$min}, #{$preferred}, #{$max});
+}
+
+/// Génère une transition CSS standardisée
+/// @param {String} $property - Propriété à animer
+/// @param {Time} $duration [0.3s] - Durée de la transition
+/// @param {String} $timing [ease] - Fonction de timing
+/// @return {String} - Valeur de transition CSS
+/// @example scss - Usage
+///   transition: ease-transition(opacity, 0.3s, ease-in-out);
+@function ease-transition($property, $duration: 0.3s, $timing: ease) {
+  @return $property $duration $timing;
+}
+
+// ========================================
+// 2. FONCTIONS MAP HELPERS
+// ========================================
+
+/// Récupère une valeur depuis une map Sass
+/// @param {Map} $map - Map source
+/// @param {String} $key - Clé à récupérer
+/// @return {*} - Valeur correspondante ou null
+/// @example scss - Usage
+///   margin: get-value($spacing-scale, lg); // 32px
+@function get-value($map, $key) {
+  @return map.get($map, $key);
+}

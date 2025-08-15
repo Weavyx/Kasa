@@ -1,70 +1,68 @@
+@use "sass:map";
 @use "../abstracts/mixins" as *;
-// Styles pour le composant Banner
+@use "../abstracts/functions" as *;
+@use "../abstracts/variables" as *;
+
 .banner {
   position: relative;
   margin: 0 auto;
-  border-radius: 25px;
+  border-radius: map.get($border-radius, xxl);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-size: cover;
   background-position: center;
 
+  @include flex-container(row, nowrap, flex-start, center);
+  @include responsive-size(height, 111px, 180px, 223px);
+  @include responsive-percentage-width("banner");
+
+  @include respond-to(tablet) {
+    justify-content: center;
+  }
+
+  @include respond-to(desktop) {
+    justify-content: center;
+  }
+
+  &--home {
+    @include respond-to(tablet) {
+      @include component-shadow("banner");
+    }
+
+    @include respond-to(desktop) {
+      @include component-shadow("banner");
+    }
+  }
+
   &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    @include overlay(rgba-overlay($black, $opacity-overlay), $z-index-base);
   }
 
   &__text {
     position: relative;
     z-index: 2;
-    color: #fff;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    letter-spacing: 0;
-    text-align: center;
-  }
+    text-align: left;
+    margin-left: 16px;
+    @include montserrat-font(700, 24px, 1, $white);
+    @include responsive-font-size(24px, 32px, 48px);
 
-  @include respond-to(mobile) {
-    height: 111px;
-    width: 89.337%;
-    justify-content: flex-start;
-    &__text {
-      font-size: 24px;
-      line-height: 1;
-      text-align: left;
-      margin-left: 16px;
-    }
-  }
-
-  @include respond-to(tablet) {
-    height: 180px;
-    width: 95%;
-    justify-content: center;
-    &__text {
-      font-size: 32px;
+    @include respond-to(tablet) {
       line-height: 1.2;
       text-align: center;
       margin-left: 0;
-      -webkit-text-stroke: 0.7px #000;
+      @include text-effects($stroke-light);
+    }
+
+    @include respond-to(desktop) {
+      margin-left: 0;
+      line-height: 1.43;
+      @include text-effects($stroke-heavy, $shadow-text);
     }
   }
 
-  @include respond-to(desktop) {
-    width: 86.112%;
-    height: 223px;
-    &__text {
-      font-size: 48px;
-      line-height: 1.43;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      -webkit-text-stroke: 1px #000;
-    }
-    & br {
+  & br {
+    display: block;
+
+    @include respond-to(desktop) {
       display: none;
     }
   }

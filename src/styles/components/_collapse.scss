@@ -1,204 +1,157 @@
+@use "sass:map";
 @use "../abstracts/mixins" as *;
+@use "../abstracts/variables" as *;
 
 .collapse {
-  min-width: 335px;
-  max-width: 335px;
-  min-height: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
+  @include responsive-property(
+    min-width,
+    335px,
+    90%,
+    map.get($layout-percentages, collapse-desktop)
+  );
+  @include responsive-property(
+    max-width,
+    335px,
+    90%,
+    map.get($layout-percentages, collapse-desktop)
+  );
 
-  @include respond-to(tablet) {
-    min-width: 600px;
-    max-width: 700px;
-    min-height: 40px;
+  &--about {
+    @include responsive-property(
+      width,
+      80%,
+      map.get($layout-percentages, collapse-tablet),
+      map.get($layout-percentages, collapse-desktop)
+    );
   }
 
-  @include respond-to(desktop) {
-    min-height: 54px;
-  }
-
-  &__toggle {
-    z-index: 2;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 30px;
-    padding: 0 10px;
-    margin: 0;
-    border: none;
-    border-radius: 5px;
-    background: #ff6060;
-    cursor: pointer;
-    &:focus {
-      outline: none;
-    }
-    @include respond-to(desktop) {
-      height: 54px;
-      padding: 0 19px 0 15px;
-    }
-    @include respond-to(tablet) {
-      height: 40px;
-      padding: 0 16px 0 13px;
-    }
-  }
-
-  &__text {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 1.43;
-    color: #fff;
-    @include respond-to(desktop) {
-      font-size: 24px;
-    }
-    @include respond-to(tablet) {
-      font-size: 18px;
-    }
-  }
-
-  &__content {
-    margin-top: -5px;
-    background: #f6f6f6;
-    border-radius: 0 0 10px 10px;
-    color: #000;
-    box-sizing: border-box;
-    width: 100%;
-    overflow: hidden;
-    .collapse__paragraph-wrapper {
-      overflow: hidden;
-      font-family: "Montserrat", sans-serif;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 1.43;
-      color: #000;
-      transform: translateY(-100%);
-      padding: 16.833px 20px 19px;
-      transition: transform 0.3s;
-      &.open {
-        transform: translateY(0);
-        padding: 16.833px 20px 19px;
-      }
-      @include respond-to(desktop) {
-        padding: 16px 20px 20px;
-        font-size: 18px;
-      }
-      @include respond-to(tablet) {
-        padding: 16px 20px 18px;
-        font-size: 15px;
-      }
-
-      // Styles pour les éléments enfants
-      p {
-        margin: 0;
-      }
-
-      ul {
-        margin: 0;
-        padding-left: 0;
-      }
-
-      li {
-        margin-bottom: 0;
-        font-family: "Montserrat", sans-serif;
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 1.43;
-        letter-spacing: 0;
-        @include respond-to(tablet) {
-          font-size: 15px;
-        }
-        @include respond-to(desktop) {
-          font-size: 18px;
-        }
-      }
-    }
-    .collapse__paragraph {
-      font-family: "Montserrat", sans-serif;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 1.43;
-      color: #000;
-      transform: translateY(-100%);
-      padding: 18px 20px 19px;
-      transition: transform 0.3s;
-      &.open {
-        transform: translateY(0);
-      }
-      @include respond-to(desktop) {
-        padding: 16px 20px 20px;
-        font-size: 18px;
-      }
-      @include respond-to(tablet) {
-        padding: 16px 20px 18px;
-        font-size: 15px;
-      }
-    }
-  }
-
-  &__arrow {
-    width: 16px;
-    transition: transform 0.3s ease-in-out;
-    &.open {
-      transform: rotate(-180deg);
-    }
-    @include respond-to(desktop) {
-      width: 24px;
-    }
-    @include respond-to(tablet) {
-      width: 20px;
-    }
-  }
-
-  @include respond-to(desktop) {
-    width: 71.042%;
-    max-width: 1023px;
-  }
-
-  @include respond-to(tablet) {
-    width: 90%;
-    max-width: 800px;
-  }
-
-  // Variante pour la page Logement
   &--logement {
-    min-width: 100%;
-    max-width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: map.get($spacing-scale, md);
 
-    @include respond-to(desktop) {
-      display: flex;
-      max-width: 46.9365%;
-      min-width: 46.9365%;
-    }
-
-    @include respond-to(tablet) {
-      width: 100%;
-      max-width: 100%;
-    }
+    @include responsive-property(
+      min-width,
+      100%,
+      100%,
+      map.get($layout-percentages, logement-desktop-collapse)
+    );
+    @include responsive-property(
+      max-width,
+      100%,
+      100%,
+      map.get($layout-percentages, logement-desktop-collapse)
+    );
 
     &:last-child {
       margin-bottom: 0;
     }
+  }
+}
 
-    & .collapse__text {
-      font-size: 13px;
-      @include respond-to(tablet) {
-        font-size: 15px;
-      }
-      @include respond-to(desktop) {
-        font-size: 18px;
-      }
+.collapse__toggle {
+  z-index: $z-index-overlay;
+  width: 100%;
+  margin: 0 0 -5px 0;
+  border: none;
+  border-radius: map.get($border-radius, xs);
+  background: $primary-color;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+
+  @include responsive-property(height, 30px, 47px, 52px);
+  @include responsive-property(
+    padding,
+    0 16px 0 13px,
+    0 18px 0 15px,
+    0 20px 0 18px
+  );
+  @include transition(all, 0.2s, ease);
+
+  &:focus {
+    outline: none;
+  }
+
+  &--logement {
+    @include responsive-property(
+      padding,
+      10px 18px 10px 10px,
+      12px 20px 12px 12px,
+      15px 22px 15px 15px
+    );
+  }
+}
+
+.collapse__text {
+  @include montserrat-font(700, 13px, 1.43, $white);
+  @include responsive-font-size(13px, 18px, 24px);
+}
+
+.collapse__arrow {
+  color: $white;
+  transform: rotate(0deg) !important;
+  transition: transform 0.3s ease !important;
+
+  @include responsive-property(width, 16px, 24px, 24px);
+
+  &--open {
+    transform: rotate(-180deg) !important;
+  }
+}
+
+.collapse__content {
+  background: $secondary-color;
+  border-radius: 0 0 map.get($border-radius, xs) map.get($border-radius, xs);
+  max-height: 0 !important;
+  overflow: hidden !important;
+  padding: 0 20px !important;
+  transition: all 0.3s ease !important;
+
+  @include montserrat-font(400, 12px, 1.43, $text-color);
+  @include responsive-font-size(12px, 15px, 18px);
+
+  @include respond-to(tablet) {
+    border-radius: 0 0 map.get($border-radius, sm) map.get($border-radius, sm);
+    padding: 0 20px !important;
+  }
+
+  @include respond-to(desktop) {
+    border-radius: 0 0 map.get($border-radius, md) map.get($border-radius, md);
+    padding: 0 20px !important;
+  }
+
+  &--open {
+    max-height: 200px !important;
+    padding: 21px 20px 18px !important;
+
+    @include respond-to(tablet) {
+      max-height: 250px !important;
+      padding: 21px 20px 19px !important;
     }
-    & .collapse__toggle {
-      padding: 10px 12px 10px 10px;
-      @include respond-to(tablet) {
-        padding: 10px 18px 10px 10px;
-      }
-      @include respond-to(desktop) {
-        padding: 10px 24px 10px 10px;
-      }
+
+    @include respond-to(desktop) {
+      max-height: 300px !important;
+      padding: 21px 20px 20px !important;
     }
+  }
+
+  p {
+    margin: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  li {
+    margin-bottom: 0;
+
+    @include montserrat-font(400, 12px, 1.43, $text-color);
+    @include responsive-font-size(12px, 15px, 18px);
   }
 }

@@ -1,6 +1,6 @@
 import Collapse from '../components/Collapse';
 import Banner from '../components/Banner';
-import bannerImg from '../assets/about-banner.jpg';
+import bannerImg from '../assets/images/about-banner.jpg';
 
 const About = () => {
   const collapseItems = [

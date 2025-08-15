@@ -1,11 +1,20 @@
-// Styles de typographie
+// =============================================================================
+// TYPOGRAPHY - Configuration des polices et styles de texte
+// =============================================================================
+
+// ========================================
+// 1. FONT LOADING (Performance optimisée)
+// ========================================
+
+/// Configuration Montserrat avec font-display: swap pour les performances
 @font-face {
   font-family: "Montserrat";
   src: url("/fonts/Montserrat-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: swap; // Améliore le LCP (Largest Contentful Paint)
 }
+
 @font-face {
   font-family: "Montserrat";
   src: url("/fonts/Montserrat-Medium.woff2") format("woff2");
@@ -13,10 +22,51 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Montserrat";
   src: url("/fonts/Montserrat-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
+}
+
+// ========================================
+// 2. TYPOGRAPHY TOKENS (Design System)
+// ========================================
+
+:root {
+  // Font stacks avec fallbacks robustes
+  --font-family-primary: "Montserrat", system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  --font-family-system: system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  // Échelle typographique harmonieuse
+  --font-size-xs: 0.75rem; // 12px
+  --font-size-sm: 0.875rem; // 14px
+  --font-size-base: 1rem; // 16px
+  --font-size-lg: 1.125rem; // 18px
+  --font-size-xl: 1.25rem; // 20px
+  --font-size-2xl: 1.5rem; // 24px
+  --font-size-3xl: 2rem; // 32px
+  --font-size-4xl: 3rem; // 48px
+
+  // Line-heights optimisées pour la lisibilité
+  --line-height-tight: 1.25;
+  --line-height-base: 1.43;
+  --line-height-relaxed: 1.6;
+}
+
+// ========================================
+// 3. GLOBAL TEXT STYLES
+// ========================================
+
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--text-color, #000);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

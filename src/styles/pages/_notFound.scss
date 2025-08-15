@@ -1,75 +1,51 @@
 @use "../abstracts/mixins" as *;
+@use "../abstracts/functions" as *;
+@use "../abstracts/variables" as *;
 
 .not-found {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  @include respond-to(mobile) {
-  }
+  @include flex-center(column);
 
   &__title {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700;
-    margin-top: 139px;
-    font-size: 288px;
-    line-height: 1.43;
-    color: #ff6060;
-    @include respond-to(mobile) {
-      font-size: 96px;
-      margin-top: 113px;
-    }
-    @include respond-to(tablet) {
-      font-size: 180px;
-      margin-top: 120px;
-    }
+    @include montserrat-font(700, 96px, 1.43, $primary-color);
+    @include responsive-spacing(
+      margin-top,
+      get-value($margins-notfound, mobile),
+      get-value($margins-notfound, tablet),
+      get-value($margins-notfound, desktop)
+    );
+    @include responsive-size(font-size, 96px, 180px, 288px);
   }
 
   &__text {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 500;
-    margin-top: 139px;
-    font-size: 36px;
-    line-height: 1.43;
-    color: #ff6060;
     text-align: center;
-    @include respond-to(mobile) {
-      font-size: 18px;
-      margin-top: 113px;
-      max-width: 260px;
-    }
-    @include respond-to(tablet) {
-      font-size: 24px;
-      margin-top: 120px;
-      max-width: 400px;
-    }
+    @include montserrat-font(500, 18px, 1.43, $primary-color);
+    @include responsive-spacing(
+      margin-top,
+      get-value($margins-notfound, mobile),
+      get-value($margins-notfound, tablet),
+      get-value($margins-notfound, desktop)
+    );
+    @include responsive-size(font-size, 18px, 24px, 36px);
+    @include responsive-size(max-width, 260px, 400px, none);
+
     & br {
-      display: none;
-      @include respond-to(mobile) {
-        display: block;
-      }
-      @include respond-to(tablet) {
-        display: block;
+      display: block;
+
+      @include respond-to(desktop) {
+        display: none;
       }
     }
   }
 
   &__link {
-    color: #000;
     text-decoration: underline;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 500;
-    margin: 139px 0;
-    font-size: 18px;
-    line-height: 1.43;
-    letter-spacing: 0;
-    @include respond-to(mobile) {
-      font-size: 14px;
-      margin: 113px 0;
-    }
-    @include respond-to(tablet) {
-      font-size: 16px;
-      margin: 120px 0;
-    }
+    @include montserrat-font(500, 14px, 1.43, $black);
+    @include responsive-spacing(
+      margin,
+      get-value($margins-notfound, mobile) 0,
+      get-value($margins-notfound, tablet) 0,
+      get-value($margins-notfound, desktop) 0
+    );
+    @include responsive-size(font-size, 14px, 16px, 18px);
   }
 }
