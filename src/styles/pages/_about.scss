@@ -10,4 +10,9 @@
     margin: 38px auto;
     row-gap: map.get($spacing-scale, lg);
   }
+
+  @include respond-to(desktop) {
+    margin: 38px auto;
+    row-gap: map.get($spacing-scale, lg);
+  }
 }

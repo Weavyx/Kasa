@@ -6,6 +6,10 @@
   @include flex-center(column);
 
   &__title {
+    @include respond-to(desktop) {
+      line-height: 263px;
+      height: 263px;
+    }
     @include montserrat-font(700, 96px, 1.43, $primary-color);
     @include responsive-spacing(
       margin-top,

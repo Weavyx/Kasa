@@ -18,6 +18,10 @@
       flex-direction: row;
       justify-content: space-between;
     }
+    @include respond-to(desktop) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
 
     &-info {
       gap: map.get($spacing-scale, xs);
@@ -69,6 +73,7 @@
 
     @include respond-to(desktop) {
       row-gap: 27px;
+      flex-flow: column nowrap;
     }
   }
 
